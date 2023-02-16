@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "start": "nuxt start"
+  },
+  "devDependencies": {
+    "@vite-pwa/nuxt": "^0.0.5",
+    "nuxt": "^3.1.1"
+  },
+  "dependencies": {
+    "@nuxt-modules/compression": "^0.1.0",
+    "@nuxtjs/ngrok": "^2.0.0",
+    "ngrok": "^4.3.3",
+    "sass": "^1.58.0",
+    "vite-plugin-compression": "^0.5.1"
+  }
+}
