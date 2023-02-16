@@ -1,5 +1,6 @@
 <template>
   <div>
+    <addTrap v-if="addTrapActive" />
     <h1 id="h1">Musfälla</h1>
     <main>
       <div class="item">
@@ -18,7 +19,7 @@
       </div>
     </main>
     <footer>
-      <NuxtLink to="/add">New Mouse Trap</NuxtLink>
+      <div id="addTrapButton" @click="changeAddTrapState">+</div>
     </footer>
   </div>
 </template>
@@ -27,6 +28,13 @@
 //const cookie = useCookie('auth');
 //console.log('cookie', cookie)
 //if (cookie == null || cookie == undefined || cookie.value == undefined || cookie.value == '') await navigateTo('/login');
+
+let addTrapActive = useState('addTrapActive', () => false);
+
+function changeAddTrapState() {
+  addTrapActive.value = !addTrapActive.value;
+  console.log(addTrapActive);
+}
 </script>
 
 <style lang="sass">
@@ -66,10 +74,10 @@ main
         margin: 10px 0px 0px 25px
         font-size: 1.5em
 
-@keyframes footerSlideFromRight
+@keyframes footerSlideFromLeft
   0%
     opacity: 0
-    left: 50px
+    left: -50px
   100%
     opacity: 1
     left: 0px
@@ -78,19 +86,24 @@ footer
   position: absolute
   bottom: 0px
   width: 100%
-  height: 75px
-  animation: footerSlideFromRight ease-in-out 1s 1 2s forwards
+  height: auto
+  animation: footerSlideFromLeft ease-in-out 1s 1 1s forwards
   opacity: 0
   display: flex
 
-  a
-    position: absolute
-    top: 50%
-    transform: translateY(-50%)
-    right: 30px
+  #addTrapButton
+    position: relative
+    left: 25px
+    bottom: 25px
+    padding: 10px 22.5px
     text-decoration: none
-    color: $color-1
+    color: $white-2
+    font-size: 2.5em
+    background: $color-3
+    border-radius: 5px
 
-  a:hover
-    text-decoration: underline
+    &:hover
+      background: $color-2
+      cursor: pointer
+      box-shadow: 1px 1px 2.5px 0px rgba(black, 0.5)
 </style>
