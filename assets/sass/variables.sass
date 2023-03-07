@@ -20,8 +20,20 @@ $color-8: #253525
   unicode-range: U+000-5FF
 
 @font-face
+  font-family: "Crepster"
+  src: local("Crepster"), url(/fonts/Creepster-Regular.ttf) format("truetype")
+  font-display: swap
+  unicode-range: U+000-5FF
+
+@font-face
   font-family: "Lato"
   src: local("Lato"), url(/fonts/Lato-Regular-Comp.woff2) format("truetype"), url(/fonts/Lato-Bold-Comp.woff2) format("truetype")
+  font-display: swap
+  unicode-range: U+000-5FF
+
+@font-face
+  font-family: "CabinSketch"
+  src: local("CabinSketch"), url(/fonts/CabinSketch-Regular.ttf) format("truetype"), url(/fonts/CabinSketch-Bold.ttf) format("truetype")
   font-display: swap
   unicode-range: U+000-5FF
 
@@ -30,3 +42,8 @@ $color-8: #253525
   src: local("sans-serif"), url(/fonts/Sans-Serif.woff2) format("truetype")
   font-display: swap
   unicode-range: U+000-5FF
+
+@function randomNum($min, $max)
+  $rand: random()
+  $randomNum: $min + floor($rand * (($max - $min) + 1))
+  @return $randomNum

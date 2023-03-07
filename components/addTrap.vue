@@ -2,9 +2,9 @@
   <div id="addTrap">
     <div id="box">
       <h2>Lägg Till Musfälla</h2>
-      <form>
+      <form onsubmit="return false">
         <input type="text" v-model="trapName" placeholder="Namn...">
-        <button type="submit">_|</button>
+        <button type="submit" @click="addTrap">Ok</button>
       </form>  
     </div>
   </div>
@@ -12,6 +12,15 @@
 
 <script setup>
 let trapName = useState('trapName', () => '');
+
+function addTrap() {
+  closeAddTrap();
+}
+
+function closeAddTrap() {
+  let addTrapActive = useState('addTrapActive');
+  addTrapActive.value = false;
+}
 </script>
 
 <style lang="sass" scoped>
@@ -38,18 +47,32 @@ let trapName = useState('trapName', () => '');
       color: $color-3
 
     form
+      margin: 0px 30px 40px 30px
 
       input
-        margin: 0px 30px 40px 30px
         border: none
         border-radius: 5px
-        padding: 13.5px 15px 11.5px 15px
+        height: 45px
+        padding: 0px 12.5px
         font-size: 1em
-        width: calc(100% - 60px - 30px)
+        width: calc(100% - 25px)
 
         &:focus
           outline: none
 
       button
         position: absolute
+        height: 45px
+        width: 45px
+        right: 30px
+        background: $color-3
+        border: none
+        border-radius: 5px
+        transition: 0.25s
+        color: $white-2
+
+        &:hover
+          cursor: pointer
+          background: $color-4
+
 </style>
