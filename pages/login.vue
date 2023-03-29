@@ -1,10 +1,11 @@
 <template>
   <div>
+    <background />
     <div id="login">
       <form onsubmit="return false">
         <h1>Login</h1>
         <div class="line"></div>
-        <input type="text" autocomplete="off" v-model="usernameOrEmail" placeholder="Username or Email" />
+        <input type="text" autocomplete="off" v-model="email" placeholder="Email" />
         <input type="password" autocomplete="off" v-model="password" placeholder="Password" />
         <div id="bottom">
           <button @click="submitForm()">Submit</button>
@@ -20,8 +21,8 @@
 </template>
 
 <script setup>
-let usernameOrEmail = '';
-let password = '';
+const email = useState('email', () => '');
+const password = useState('password', () => '');
 
 let formWarning = useState('formWarning', () => false);
 let formFailed = useState('formFailed', () => false);
@@ -38,16 +39,20 @@ async function submitForm() {
 
   let res;
   try {
-    if (usernameOrEmail == '' || password == '') res = { status: 400 };
+    if (email.value == '' || password.value == '') res = { status: 400 };
     else {
-      res = await $fetch('/api/login', {
+      res = await $fetch('https://api.simsva.se/musfalla/authenticate', {
         method: 'POST',
         body: {
-          usernameOrEmail: usernameOrEmail,
-          password: password
+          email: email.value,
+          password: password.value
+        },
+        headers: {
+          'Content-Type': 'application/json'
         }
       });
-      useState('auth', () => res.auth);
+      useState('auth', () => res);
+      if (res != '') res = { status: 200 };
     }
   } catch (err) {
     res = { status: 500 }
@@ -61,7 +66,7 @@ async function submitForm() {
 
 <style lang="sass" scoped>
 #login
-  position: relative
+  position: absolute
   height: 100vh
   width: 100vw
   z-index: 15
@@ -97,7 +102,7 @@ async function submitForm() {
       width: 80%
 
     h1
-      color: $color-7
+      color: rgba(red, 0.5)
       text-align: left
       position: relative
       top: 50%
@@ -117,7 +122,7 @@ async function submitForm() {
       left: 50%
       transform: translateX(-50%)
       height: 2px
-      background: $color-5
+      background: rgba(red, 0.5)
       backdrop-filter: blur(10px)
       margin: 0px 0px 15px 0px
 
@@ -133,16 +138,16 @@ async function submitForm() {
       margin: 7.5px 0px
       padding: 0px 17.5px
       font-size: 1em
-      color: black
+      color: white
       
       @media screen and (max-width: 800px)
         margin: 5px 0px
 
     input::placeholder
-      color: rgba(black, 0.75)
+      color: rgba(white, 0.75)
 
     input:focus
-      outline: 2.5px solid rgba($white-2, 0.1)
+      outline: 2.5px solid rgba($white-2, 0.25)
 
     #bottom
       position: relative
@@ -162,7 +167,7 @@ async function submitForm() {
         font-size: 1.1em
         border: none
         transition: 0.25s
-        background-color: $color-6
+        background-color: rgba(red, 0.25)
         backdrop-filter: blur(10px)
         color: $white-2
         border-radius: 5px
@@ -182,7 +187,7 @@ async function submitForm() {
 
       button:hover
         cursor: pointer
-        background-color: $color-7
+        background-color: rgba(red, 0.35)
 
       p
         position: absolute
@@ -231,7 +236,7 @@ async function submitForm() {
       transform: translateY(-50%)
       right: 30px
       text-decoration: none
-      color: $color-1
+      color: white
 
     a:hover
       text-decoration: underline

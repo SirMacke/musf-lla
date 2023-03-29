@@ -8,7 +8,7 @@
         <h2>Aktiva Fällor</h2>
         <div>
           <img src="/images/mouse-trap-100.png" id="mouse-trap-open">
-          <p>3</p>
+          <p>{{ devices.length }}</p>
         </div>
       </div>
       <div class="item">
@@ -26,9 +26,21 @@
 </template>
 
 <script setup>
-//const cookie = useCookie('auth');
-//console.log('cookie', cookie)
-//if (cookie == null || cookie == undefined || cookie.value == undefined || cookie.value == '') await navigateTo('/login');
+const auth = useState('auth');
+console.log('auth', auth);
+if (auth == null || auth == undefined || auth.value == undefined || auth.value == '') await navigateTo('/login');
+
+
+let devices = JSON.parse(await $fetch('https://api.simsva.se/musfalla/devices', {
+  method: 'GET',
+  headers: {
+    'Authorization': auth.value,
+    'Content-Type': 'application/json'
+  }
+}));
+
+console.log('devices', devices)
+
 
 let addTrapActive = useState('addTrapActive', () => false);
 
@@ -127,12 +139,12 @@ footer
     text-decoration: none
     color: $white-2
     font-size: 2.5em
-    background: rgba(red, 0.2)
+    background: rgba(red, 0.25)
     border-radius: 5px
     box-shadow: rgba(red, 0.2) 0px 0px 8px
 
     &:hover
-      background: rgba($color-3, 0.35)
+      background: rgba(red, 0.35)
       cursor: pointer
       box-shadow: 1px 1px 2.5px 0px rgba(black, 0.5)
 </style>
