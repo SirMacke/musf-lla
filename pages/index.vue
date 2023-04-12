@@ -15,18 +15,19 @@
         <h2>Fångade Möss</h2>
         <div>
           <img src="/images/mouse-trap-mouse-100.png" id="mouse-trap-closed">
-          <p>1</p>
+          <p>{{ closeEvents.length }}</p>
         </div>
       </div>
     </main>
     <footer>
       <div id="addTrapButton" @click="changeAddTrapState">+</div>
+      <a @click="logout()">Logout</a>
     </footer>
   </div>
 </template>
 
 <script setup>
-const auth = useState('auth');
+const auth = useCookie('auth');
 console.log('auth', auth);
 if (auth == null || auth == undefined || auth.value == undefined || auth.value == '') await navigateTo('/login');
 
@@ -42,11 +43,27 @@ let devices = JSON.parse(await $fetch('https://api.simsva.se/musfalla/devices', 
 console.log('devices', devices)
 
 
+let closeEvents = JSON.parse(await $fetch('https://api.simsva.se/musfalla/events', {
+  method: 'GET',
+  headers: {
+    'Authorization': auth.value,
+    'Content-Type': 'application/json'
+  }
+})).filter(n => n.type == 'close');
+
+console.log('closeEvents', closeEvents)
+
+
 let addTrapActive = useState('addTrapActive', () => false);
 
 function changeAddTrapState() {
   addTrapActive.value = !addTrapActive.value;
   console.log(addTrapActive);
+}
+
+async function logout() {
+  auth.value = null;
+  await navigateTo('/login');
 }
 </script>
 
@@ -113,20 +130,20 @@ main
         font-size: 2em
         font-weight: bold
 
-@keyframes footerSlideFromLeft
+@keyframes footerSlideFromBottom
   0%
     opacity: 0
-    left: -50px
+    bottom: -50px
   100%
     opacity: 1
-    left: 0px
+    bottom: 0px
 
 footer
   position: absolute
   bottom: 0px
   width: 100%
   height: auto
-  animation: footerSlideFromLeft ease-in-out 1s 1 1s forwards
+  animation: footerSlideFromBottom ease-in-out 1s 1 1s forwards
   opacity: 0
   display: flex
   z-index: 3
@@ -147,4 +164,16 @@ footer
       background: rgba(red, 0.35)
       cursor: pointer
       box-shadow: 1px 1px 2.5px 0px rgba(black, 0.5)
+
+  a
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+    right: 30px
+    text-decoration: none
+    color: white
+
+  a:hover
+    text-decoration: underline
+    cursor: pointer
 </style>

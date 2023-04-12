@@ -51,7 +51,8 @@ async function submitForm() {
           'Content-Type': 'application/json'
         }
       });
-      useState('auth', () => res);
+      const auth = useCookie('auth');
+      auth.value = res;
       if (res != '') res = { status: 200 };
     }
   } catch (err) {

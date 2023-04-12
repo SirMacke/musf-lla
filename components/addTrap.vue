@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-const auth = useState('auth');
+const auth = useCookie('auth');
 console.log('auth', auth);
 
 let trapName = useState('trapName', () => '');
@@ -36,10 +36,11 @@ async function addTrap() {
   trapId.value = res;
 }
 
-function closeAddTrap() {
+async function closeAddTrap() {
   trapId.value = '';
   let addTrapActive = useState('addTrapActive');
   addTrapActive.value = false;
+  await navigateTo('/');
 }
 </script>
 
@@ -119,6 +120,9 @@ function closeAddTrap() {
         transition: 0.25s
         color: $white-2
         margin-top: 5px
+
+        @media screen and (min-width: 800px)
+          margin-top: 0px
 
         &:hover
           cursor: pointer

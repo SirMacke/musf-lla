@@ -45,7 +45,8 @@ async function submitForm() {
         body: {
           name: username.value,
           email: email.value,
-          password: password.value
+          password: password.value,
+          mail_notification: true
         },
         headers: {
           'Content-Type': 'application/json'
