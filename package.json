@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@vite-pwa/nuxt": "^0.0.5",
-    "nuxt": "^3.1.1"
+    "nuxt": "^3.4.1"
   },
   "dependencies": {
     "@nuxt-modules/compression": "^0.1.0",

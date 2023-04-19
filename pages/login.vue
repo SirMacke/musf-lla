@@ -71,6 +71,7 @@ async function submitForm() {
   height: 100vh
   width: 100vw
   z-index: 15
+  overflow: hidden
 
   @keyframes contactFadeUp
     0%
@@ -230,6 +231,7 @@ async function submitForm() {
     height: 75px
     animation: footerSlideFromRight ease-in-out 1s 1 2s forwards
     opacity: 0
+    overflow: hidden
 
     a
       position: absolute
@@ -238,6 +240,7 @@ async function submitForm() {
       right: 30px
       text-decoration: none
       color: white
+      overflow: hidden
 
     a:hover
       text-decoration: underline

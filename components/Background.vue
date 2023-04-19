@@ -43,6 +43,7 @@
     width: 100vw
     height: 100vh
     z-index: 3
+    overflow: hidden
 
     img
       position: absolute

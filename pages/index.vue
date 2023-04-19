@@ -31,28 +31,34 @@ const auth = useCookie('auth');
 console.log('auth', auth);
 if (auth == null || auth == undefined || auth.value == undefined || auth.value == '') await navigateTo('/login');
 
+let devices = ref([]);
+let closeEvents = ref([]);
 
-let devices = JSON.parse(await $fetch('https://api.simsva.se/musfalla/devices', {
-  method: 'GET',
-  headers: {
-    'Authorization': auth.value,
-    'Content-Type': 'application/json'
-  }
-}));
+findData();
+setInterval(findData, 2000);
 
-console.log('devices', devices)
+async function findData() {
+  devices.value = JSON.parse(await $fetch('https://api.simsva.se/musfalla/devices', {
+    method: 'GET',
+    headers: {
+      'Authorization': auth.value,
+      'Content-Type': 'application/json'
+    }
+  }));
+
+  console.log('devices', devices)
 
 
-let closeEvents = JSON.parse(await $fetch('https://api.simsva.se/musfalla/events', {
-  method: 'GET',
-  headers: {
-    'Authorization': auth.value,
-    'Content-Type': 'application/json'
-  }
-})).filter(n => n.type == 'close');
+  closeEvents.value = JSON.parse(await $fetch('https://api.simsva.se/musfalla/events', {
+    method: 'GET',
+    headers: {
+      'Authorization': auth.value,
+      'Content-Type': 'application/json'
+    }
+  })).filter(n => n.type == 'close');
 
-console.log('closeEvents', closeEvents)
-
+  console.log('closeEvents', closeEvents)
+}
 
 let addTrapActive = useState('addTrapActive', () => false);
 

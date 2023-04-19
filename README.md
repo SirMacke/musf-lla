@@ -1,3 +1,15 @@
+
+
+To be fixed
+
+| overflow issue
+| green color issue
+- need to auto update active traps after adding a new trap
+- netlify home page doesn't work if you're not logged in already
+/ change logo
+
+
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

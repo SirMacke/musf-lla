@@ -9,7 +9,24 @@
 </template>
 
 <script setup>
-
+useHead({
+  link: [
+    {
+      rel: 'icon',
+      href: '/favicon.ico',
+      sizes: 'any'
+    },
+    {
+      rel: 'icon',
+      href: '/favicon.svg',
+      type: 'image/svg+xml'
+    },
+    {
+      rel: 'apple-touch-icon',
+      href: '/pwa-192x192.png'
+    }
+  ]
+});
 </script>
 
 <style lang="sass">
